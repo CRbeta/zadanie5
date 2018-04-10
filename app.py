@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, g, request
+from flask import Flask, request
 import json
 from datetime import datetime
 from sqlalchemy import CheckConstraint, Column, DateTime, ForeignKey, Index, Integer, LargeBinary, Numeric, SmallInteger, String, Table, Text, text
@@ -7,7 +7,6 @@ from sqlalchemy.orm import relationship, sessionmaker, scoped_session
 from sqlalchemy.sql.sqltypes import NullType
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-from datetime import datetime
 
 
 engine = create_engine('sqlite:///sakila.db')
@@ -327,6 +326,3 @@ def cities_by_country():
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     session.remove()
-
-if __name__ == "__main__":
-    app.run(debug=True)
