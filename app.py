@@ -28,7 +28,6 @@ class Actor(Base):
     last_name = Column(String(45), nullable=False)
     last_update = Column(DateTime)
 
-
 class Addres(Base):
     __tablename__ = 'address'
 
@@ -51,7 +50,6 @@ class Category(Base):
     name = Column(String(25), nullable=False)
     last_update = Column(DateTime, nullable=False)
 
-
 class City(Base):
     __tablename__ = 'city'
 
@@ -65,14 +63,12 @@ class City(Base):
 
     adresses = relationship('Addres')
 
-
 class Country(Base):
     __tablename__ = 'country'
 
     country_id = Column(SmallInteger, primary_key=True)
     country = Column(String(50), nullable=False)
     last_update = Column(DateTime)
-
 
 class Customer(Base):
     __tablename__ = 'customer'
@@ -89,7 +85,6 @@ class Customer(Base):
 
     address = relationship('Addres')
     store = relationship('Store')
-
 
 t_customer_list = Table(
     'customer_list', metadata,
@@ -299,11 +294,8 @@ class Store(Base):
 
 app =  Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////sakila.db'
-#dodałem poniżej
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-
+#db = SQLAlchemy(app)
 
 
 @app.route('/')
@@ -323,6 +315,4 @@ def cities_by_country():
     if request.args.get('format') == 'json':
         return json.dumps([city.city for city in session.query(City).all()])
 
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    session.remove()
+
